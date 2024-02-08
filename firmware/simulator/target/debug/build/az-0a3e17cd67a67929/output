@@ -1,0 +1,6 @@
+$ mkdir -p "/Users/patrickhe/Documents/dev-projects/bakfiets/firmware/eg-next/target/debug/build/az-0a3e17cd67a67929/out/try_track_caller"
+$ cd "/Users/patrickhe/Documents/dev-projects/bakfiets/firmware/eg-next/target/debug/build/az-0a3e17cd67a67929/out/try_track_caller"
+$ printf '%s' "// try_tra"... > "/Users/patrickhe/Documents/dev-projects/bakfiets/firmware/eg-next/target/debug/build/az-0a3e17cd67a67929/out/try_track_caller/try_track_caller.rs"
+$ cd "/Users/patrickhe/Documents/dev-projects/bakfiets/firmware/eg-next/target/debug/build/az-0a3e17cd67a67929/out/try_track_caller" && "/Users/patrickhe/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc" "try_track_caller.rs" "--emit=dep-info,metadata" >& /dev/null
+cargo:rustc-cfg=track_caller
+$ rm -r "/Users/patrickhe/Documents/dev-projects/bakfiets/firmware/eg-next/target/debug/build/az-0a3e17cd67a67929/out/try_track_caller"
