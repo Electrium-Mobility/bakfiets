@@ -1,5 +1,5 @@
 use embedded_graphics::{
-    mono_font::{ascii::FONT_6X9, MonoTextStyle},
+    mono_font::{ascii::FONT_8X12, MonoTextStyle},
     pixelcolor::BinaryColor,
     prelude::*,
     primitives::{PrimitiveStyle, Rectangle},
@@ -15,46 +15,44 @@ fn main() -> Result<(), std::convert::Infallible> {
 
     let thin_stroke = PrimitiveStyle::with_stroke(BinaryColor::On, 1);
     let fill_style = PrimitiveStyle::with_fill(BinaryColor::On);
-    let character_style = MonoTextStyle::new(&FONT_6X9, BinaryColor::On);
+    let character_style = MonoTextStyle::new(&FONT_8X12, BinaryColor::On);
 
     // Draw battery indicator
     Rectangle::new(Point::new(2, 2), Size::new(24, 50))
         .into_styled(thin_stroke)
         .draw(&mut display)?;
 
-    // Battery levels
-    let battery_level_height: i32 = 10; // Now it's i32 to match Point::new expectations
+    // Draw individual battery level indicators instead of a bar
     for i in 0..3 {
-        Rectangle::new(
-            Point::new(3, 3 + i * (battery_level_height + 2) as i32),
-            Size::new(22, battery_level_height as u32), // Cast to u32 here for Size::new
-        )
-        .into_styled(fill_style)
-        .draw(&mut display)?;
+        let y_pos = 3 + i * 12;
+        Rectangle::new(Point::new(6, y_pos), Size::new(18, 8))
+            .into_styled(fill_style)
+            .draw(&mut display)?;
+
+        // Add a checkmark to the filled battery indicators
+        if i < 2 {
+            Rectangle::new(Point::new(9, y_pos + 2), Size::new(4, 6))
+                .into_styled(thin_stroke)
+                .draw(&mut display)?;
+        }
     }
 
-    // Draw speed indicator
+    // Draw speed indicator with numerical value
     Rectangle::new(Point::new(40, 50), Size::new(30, 10))
         .into_styled(thin_stroke)
         .draw(&mut display)?;
-    Rectangle::new(Point::new(41, 51), Size::new(15, 8))
-        .into_styled(fill_style)
-        .draw(&mut display)?;
-    Text::new("Speed", Point::new(40, 40), character_style)
+    Text::new("42 km/h", Point::new(40, 42), character_style) // Replace 42 with actual speed value
         .draw(&mut display)?;
 
     // Draw power indicator
     Rectangle::new(Point::new(90, 50), Size::new(30, 10))
         .into_styled(thin_stroke)
         .draw(&mut display)?;
-    Rectangle::new(Point::new(91, 51), Size::new(10, 8))
-        .into_styled(fill_style)
-        .draw(&mut display)?;
-    Text::new("Power", Point::new(90, 40), character_style)
+    Text::new("80%", Point::new(90, 42), character_style) // Replace 80 with actual power level
         .draw(&mut display)?;
 
     let output_settings = OutputSettingsBuilder::new()
-        .theme(BinaryColorTheme::OledBlue)
+        .theme(BinaryColorTheme::BlackWhite)
         .build();
     Window::new("Status Display", &output_settings).show_static(&display);
 
