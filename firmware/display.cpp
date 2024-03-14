@@ -58,11 +58,36 @@ void setup() {
 
 }
 
+void drawBattery(uint8_t percentage) {
+  int16_t batteryWidth = 48; 
+  int16_t batteryHeight = 20;
+  int16_t batteryX = SCREEN_WIDTH - batteryWidth - 75; // Position to the right
+  int16_t batteryY = 5; // Position at the top
+
+  // Calculate the width of the battery's fill
+  int16_t fillWidth = (batteryWidth - 4) * percentage / 100; 
+
+  // battery outline
+  display.drawRect(batteryX, batteryY, batteryWidth, batteryHeight, SSD1306_WHITE);
+  display.fillRect(batteryX + batteryWidth, batteryY + 3, 2, batteryHeight - 6, SSD1306_WHITE);
+
+  // battery fill
+  display.fillRect(batteryX + 2, batteryY + 2, fillWidth, batteryHeight - 4, SSD1306_WHITE);
+
+  // battery percent
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(batteryX + batteryWidth + 6, batteryY + 3);
+  display.print(percentage);
+  display.print('%');
+}
+
+
 void loop() {
-
+  display.clearDisplay(); 
   // Battery display
-
-  // Battery percentage
+  uint8_t batteryLevel = 50;// hard coded for now but will need to figure out how to get the actual battery %
+  drawBattery(batteryLevel);
 
   // Speed
 
