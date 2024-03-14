@@ -1,6 +1,6 @@
 /**************************************************************************
   Electrium Mobility Bakfiets display
-  Contributers: 
+  Contributers: Patrick He, 
  **************************************************************************/
 
 #include <SPI.h>
@@ -82,39 +82,48 @@ void drawBattery(uint8_t percentage) {
   display.print('%');
 }
 
-
-void loop() {
-  display.clearDisplay(); 
-  // Battery display
-  uint8_t batteryLevel = 50;// hard coded for now but will need to figure out how to get the actual battery %
-  drawBattery(batteryLevel);
-
-   // Speed
+void drawSpeed(uint8_t speed) {
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(10, 40);
-  display.println(36);
+  display.println(speed);
 
-  // Speed Units
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(40, 40);
   display.println(F("KM/H"));
+}
 
-  // PA divider
-  display.drawLine(95, 10, 95, display.height()-11, SSD1306_WHITE);
-
-  // PA text
+void drawLevel(uint8_t level) {
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(100, 10);
   display.println(F("PA"));
 
-  // PA level
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(105, 40);
-  display.println(5);
+  display.println(level);
+}
+
+void loop() {
+  display.clearDisplay(); 
+
+  // Battery display
+  uint8_t batteryLevel = 50;// hard coded for now but will need to figure out how to get the actual battery %
+  drawBattery(batteryLevel);
+
+  // Speed
+  uint8_t speed = 36;
+  drawSpeed(speed);
+
+  // Screen divider
+  display.drawLine(95, 10, 95, display.height()-11, SSD1306_WHITE);
+
+  // PA Level
+  uint8_t level = 5;
+  drawLevel(level);
+
   display.display();
 
 }
