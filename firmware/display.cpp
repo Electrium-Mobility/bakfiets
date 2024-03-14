@@ -59,10 +59,10 @@ void setup() {
 }
 
 void drawBattery(uint8_t percentage) {
-  int16_t batteryWidth = 48; 
-  int16_t batteryHeight = 20;
-  int16_t batteryX = SCREEN_WIDTH - batteryWidth - 75; // Position to the right
-  int16_t batteryY = 5; // Position at the top
+  int16_t batteryWidth = 40; 
+  int16_t batteryHeight = 16;
+  int16_t batteryX = SCREEN_WIDTH - batteryWidth - 80; // Position to the right
+  int16_t batteryY = 8; // Position at the top
 
   // Calculate the width of the battery's fill
   int16_t fillWidth = (batteryWidth - 4) * percentage / 100; 
@@ -77,7 +77,7 @@ void drawBattery(uint8_t percentage) {
   // battery percent
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(batteryX + batteryWidth + 6, batteryY + 3);
+  display.setCursor(batteryX + batteryWidth + 6, batteryY + 1);
   display.print(percentage);
   display.print('%');
 }
