@@ -89,29 +89,33 @@ void loop() {
   uint8_t batteryLevel = 50;// hard coded for now but will need to figure out how to get the actual battery %
   drawBattery(batteryLevel);
 
-  // Speed
+   // Speed
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(10, 40);
+  display.println(36);
 
   // Speed Units
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(40, 40);
+  display.println(F("KM/H"));
 
   // PA divider
-  display.drawLine(90, 10, 90, display.height()-11, SSD1306_WHITE);
+  display.drawLine(95, 10, 95, display.height()-11, SSD1306_WHITE);
 
   // PA text
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(100, 10);
   display.println(F("PA"));
-  display.display(); 
 
   // PA level
-  
-  
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(105, 40);
+  display.println(5);
+  display.display();
 
-
-  // for(int16_t i=0; i<display.width(); i+=4) {
-  //   display.drawLine(0, 0, i, display.height()-1, SSD1306_WHITE);
-  //   display.display(); // Update screen with each newly-drawn line
-  //   delay(1);
-  // }
 }
 
