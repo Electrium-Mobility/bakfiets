@@ -1,18 +1,19 @@
 /**************************************************************************
   Electrium Mobility Bakfiets display
-  Contributers: Patrick He, 
+  Contributers: Patrick He, Kimberley Hoang, Alisa Wu, Saptarshi Bhattacherya
  **************************************************************************/
-
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <FastLED.h>
 
+#define FASTLED_ALL_PINS_HARDWARE_SPI
+#define FASTLED_ESP32_SPI_BUS HSPI
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 #define SDA_PIN 10
 #define SCL_PIN 9
-
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
@@ -23,6 +24,12 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #define LOGO_HEIGHT   16
 #define LOGO_WIDTH    16
+
+#define LED_PIN     9
+#define NUM_LEDS    125
+
+CRGB leds[NUM_LEDS];
+
 static const unsigned char PROGMEM logo_bmp[] =
 { 0b00000000, 0b11000000,
   0b00000001, 0b11000000,
@@ -54,8 +61,14 @@ void setup() {
   // Clear the buffer
   display.clearDisplay();
 
-  loop();
+  FastLED.addLeds<WS2813, LED_PIN, GRB>(leds, NUM_LEDS); // Initialize FastLED
+  FastLED.setBrightness(50); // Set the brightness of the LEDs (0-255)
 
+  // Clear all LEDs to off initially
+  FastLED.clear();
+  FastLED.show();
+
+  loop();
 }
 
 void drawBattery(uint8_t percentage) {
@@ -106,7 +119,39 @@ void drawLevel(uint8_t level) {
   display.println(level);
 }
 
+void leftTurn() {
+  for (int i = NUM_LEDS/2; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::Red; FastLED.show(); delay(10);
+  }
+
+  for (int i = NUM_LEDS/2; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::Black; FastLED.show(); delay(10);
+  }
+}
+
+void rightTurn() {
+  for (int i = NUM_LEDS/2; i >= 0; i--) {
+    leds[i] = CRGB::Red; FastLED.show(); delay(10);
+  }
+  for (int i = NUM_LEDS/2; i >= 0; i--) {
+    leds[i] = CRGB::Black; FastLED.show(); delay(10);
+  }
+}
+
+void idle() {
+  
+}
+
 void loop() {
+  
+  rightTurn();
+  rightTurn();
+  rightTurn();
+  rightTurn();
+  rightTurn();
+  
+
+
   display.clearDisplay(); 
 
   // Battery display
@@ -125,6 +170,8 @@ void loop() {
   drawLevel(level);
 
   display.display();
+
+
 
 }
 
