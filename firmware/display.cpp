@@ -95,6 +95,7 @@ void drawBattery(uint8_t percentage) {
   display.print('%');
 }
 
+// Draw speed in KM/H
 void drawSpeed(uint8_t speed) {
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
@@ -107,6 +108,7 @@ void drawSpeed(uint8_t speed) {
   display.println(F("KM/H"));
 }
 
+// Draw Power Assist (PA) level, e.g. 'PA 5'
 void drawLevel(uint8_t level) {
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
@@ -119,6 +121,7 @@ void drawLevel(uint8_t level) {
   display.println(level);
 }
 
+// LED animation for left turn
 void leftTurn() {
   for (int i = NUM_LEDS/2; i < NUM_LEDS; i++) {
     leds[i] = CRGB::Red; FastLED.show(); delay(10);
@@ -129,6 +132,7 @@ void leftTurn() {
   }
 }
 
+// LED animation for right turn
 void rightTurn() {
   for (int i = NUM_LEDS/2; i >= 0; i--) {
     leds[i] = CRGB::Red; FastLED.show(); delay(10);
@@ -144,6 +148,7 @@ void idle() {
 
 void loop() {
   
+  // test left turn signal
   rightTurn();
   rightTurn();
   rightTurn();
