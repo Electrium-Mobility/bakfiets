@@ -1,0 +1,16 @@
+[StartTime]
+Frame 2.0-Static 2.MFC=10s
+[SolverState]
+Frame 2.0-Static 2.MFC=2
+[MainFrame]
+Frame 2.0-Static 2.MFC=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPMMBAAAAAHCBAAAAAEDDAAAAAKPBAAAAA
+[ShowMin]
+Frame 2.0-Static 2.MFC=No
+[SolverType]
+Frame 2.0-Static 2.MFC=Linear Analysis
+[StudyType]
+Frame 2.0-Static 2.MFC=0
+[StudyName]
+Frame 2.0-Static 2.MFC=Static 2
+[Solver]
+Frame 2.0-Static 2.MFC=Sparse
