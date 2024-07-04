@@ -7,3 +7,5 @@ Our vehicle features a custom-built AISI 4130 frame that was prepared for weldin
 
 **Firmware:**
 Our bike features a custom display and interface powered by an ESP32. In order to integrate our Bafang BBS02 motor, which has a built-on motor controller, we reverse-engineered the motor communication protocol to be able to display data to our custom display.
+
+To run the embedded display, upload the main.cpp file onto the ESP32
